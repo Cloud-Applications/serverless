@@ -6,44 +6,14 @@ var DynamoDB = new aws.DynamoDB.DocumentClient();
 exports.handler = (event, context, callback) => {
 
     let message = JSON.parse(event.Records[0].Sns.Message);
-
-    console.log(JSON.stringify(message));
     
     let username = message.username;
-    let HASH = message.token;
-
-    let searchParams = {
-        TableName: "dynamo_db",
-        Key: {
-            "one-time-token": HASH
-        }
-    };
     
-
     console.log("Checking if record already present in DB!!");
     if(!message.verified) {
         sendEmail(message);
     }
-    // DynamoDB.get(searchParams, function(error, record){
-        
-    //     if(error) {
-
-    //         console.log("Error in DynamoDB get method ",error);
-
-    //     } else {
-
-    //         console.log("Success in get method dynamoDB", record);
-    //         console.log(JSON.stringify(record));
-    //         let isPresent = false;
-            
-    //         if (record.Item == null || record.Item == undefined) {
-    //             isPresent = false;
-    //             // sendEmail(message);
-    //         }
-    //         sendEmail(message);
-    //     }
-    // })
-};
+}
 
 var sendEmail = (data) => {
 
