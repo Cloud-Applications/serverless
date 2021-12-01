@@ -53,7 +53,7 @@ var sendEmail = (data) => {
     "You registered an account on our application, before being able to use your account you need to verify that this is your email address by clicking here:" +"\n\n\n"+
     "Kind Regards,"+data.username+"\n\n\n"+
     link
-    let from = "no-reply@"+data.domainName
+    let from = "noreply@"+data.domainName
     let emailParams = {
         Destination: {
             ToAddresses: [data.username],
