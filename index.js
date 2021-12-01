@@ -13,7 +13,7 @@ exports.handler = (event, context, callback) => {
     let HASH = message.token;
 
     let searchParams = {
-        TableName: "dynamodb-table",
+        TableName: "dynamo_db",
         Key: {
             "one-time-token": HASH
         }
@@ -21,26 +21,28 @@ exports.handler = (event, context, callback) => {
     
 
     console.log("Checking if record already present in DB!!");
-
-    DynamoDB.get(searchParams, function(error, record){
+    if(!message.verified) {
+        sendEmail(message);
+    }
+    // DynamoDB.get(searchParams, function(error, record){
         
-        if(error) {
+    //     if(error) {
 
-            console.log("Error in DynamoDB get method ",error);
+    //         console.log("Error in DynamoDB get method ",error);
 
-        } else {
+    //     } else {
 
-            console.log("Success in get method dynamoDB", record);
-            console.log(JSON.stringify(record));
-            let isPresent = false;
-
-            if (record.Item == null || record.Item == undefined) {
-                isPresent = false;
-                // sendEmail(message);
-            }
-            sendEmail(message);
-        }
-    })
+    //         console.log("Success in get method dynamoDB", record);
+    //         console.log(JSON.stringify(record));
+    //         let isPresent = false;
+            
+    //         if (record.Item == null || record.Item == undefined) {
+    //             isPresent = false;
+    //             // sendEmail(message);
+    //         }
+    //         sendEmail(message);
+    //     }
+    // })
 };
 
 var sendEmail = (data) => {
