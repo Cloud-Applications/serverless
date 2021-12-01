@@ -1,7 +1,7 @@
 name: Deploy Lambda Function
 
 env:
-  ARTIFACT_NAME: lambdaFn${{ github.run_number }}.zip
+  ARTIFACT_NAME: lambdaFn.zip
   AWS_REGION: us-east-1
 
 on:
